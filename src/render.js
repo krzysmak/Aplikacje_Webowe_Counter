@@ -34,6 +34,17 @@ function render(store) {
     }
 
     valueEl.innerHTML = store.getState().toString();
+
+    if (valueEl.innerHTML % 2 === 0) {
+        document
+            .getElementById('incrementIfOdd')
+            .setAttribute('disabled', true);
+    }
+    else {
+        document
+            .getElementById('incrementIfOdd')
+            .removeAttribute('disabled');    
+    }
 }
 
 export { init, render };
