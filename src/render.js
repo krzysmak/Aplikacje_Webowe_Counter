@@ -11,10 +11,19 @@ function init(store) {
         store.dispatch({ type: 'DECREMENT' });
     });
 
+    document.getElementById('undo').addEventListener('click', function () {
+        if (store.getState().past.length > 0) store.dispatch({ type: 'UNDO' });
+    });
+
+    document.getElementById('redo').addEventListener('click', function () {
+        if (store.getState().future.length > 0)
+            store.dispatch({ type: 'REDO' });
+    });
+
     document
         .getElementById('incrementIfOdd')
         .addEventListener('click', function () {
-            if (store.getState() % 2 !== 0) {
+            if (store.getState().value % 2 !== 0) {
                 store.dispatch({ type: 'INCREMENT' });
             }
         });
@@ -31,7 +40,7 @@ function init(store) {
         .getElementById('incrementIfOddAsync')
         .addEventListener('click', function () {
             setTimeout(function () {
-                if (store.getState() % 2 !== 0) {
+                if (store.getState().value % 2 !== 0) {
                     store.dispatch({ type: 'INCREMENT' });
                 }
             }, 1000);
@@ -43,7 +52,7 @@ function render(store) {
         return;
     }
 
-    valueEl.innerHTML = store.getState().toString();
+    valueEl.innerHTML = store.getState().value.toString();
 
     if (valueEl.innerHTML % 2 === 0) {
         document
