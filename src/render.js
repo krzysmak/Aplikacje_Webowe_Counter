@@ -39,9 +39,15 @@ function init(store) {
     document
         .getElementById('incrementIfOddAsync')
         .addEventListener('click', function () {
+            store.dispatch({ type: 'INCREMENT' });
+        });
+
+    document
+        .getElementById('incrementIfOddAsync')
+        .addEventListener('click', function () {
             setTimeout(function () {
                 if (store.getState().value % 2 !== 0) {
-                    store.dispatch({ type: 'INCREMENT' });
+                    store.dispatch({ type: 'DECREMENT' });
                 }
             }, 1000);
         });
@@ -60,6 +66,18 @@ function render(store) {
             .setAttribute('disabled', true);
     } else {
         document.getElementById('incrementIfOdd').removeAttribute('disabled');
+    }
+
+    if (store.getState().past.length === 0) {
+        document.getElementById('undo').setAttribute('disabled', true);
+    } else {
+        document.getElementById('undo').removeAttribute('disabled');
+    }
+
+    if (store.getState().future.length === 0) {
+        document.getElementById('redo').setAttribute('disabled', true);
+    } else {
+        document.getElementById('redo').removeAttribute('disabled');
     }
 }
 
