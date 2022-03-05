@@ -3,17 +3,17 @@ let valueEl;
 function init(store) {
     valueEl = document.getElementById('value');
 
-    document.getElementById('increment').addEventListener('click', function() {
+    document.getElementById('increment').addEventListener('click', function () {
         store.dispatch({ type: 'INCREMENT' });
     });
 
-    document.getElementById('decrement').addEventListener('click', function() {
+    document.getElementById('decrement').addEventListener('click', function () {
         store.dispatch({ type: 'DECREMENT' });
     });
 
     document
         .getElementById('incrementIfOdd')
-        .addEventListener('click', function() {
+        .addEventListener('click', function () {
             if (store.getState() % 2 !== 0) {
                 store.dispatch({ type: 'INCREMENT' });
             }
@@ -21,9 +21,19 @@ function init(store) {
 
     document
         .getElementById('incrementAsync')
-        .addEventListener('click', function() {
-            setTimeout(function() {
+        .addEventListener('click', function () {
+            setTimeout(function () {
                 store.dispatch({ type: 'INCREMENT' });
+            }, 1000);
+        });
+
+    document
+        .getElementById('incrementIfOddAsync')
+        .addEventListener('click', function () {
+            setTimeout(function () {
+                if (store.getState() % 2 !== 0) {
+                    store.dispatch({ type: 'INCREMENT' });
+                }
             }, 1000);
         });
 }
@@ -39,11 +49,8 @@ function render(store) {
         document
             .getElementById('incrementIfOdd')
             .setAttribute('disabled', true);
-    }
-    else {
-        document
-            .getElementById('incrementIfOdd')
-            .removeAttribute('disabled');    
+    } else {
+        document.getElementById('incrementIfOdd').removeAttribute('disabled');
     }
 }
 
